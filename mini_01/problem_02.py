@@ -1,3 +1,8 @@
+###########################################
+# FileName     [ problem_02.py ]
+# Synopsis     [ hard-margin support vector machine algorithm ]
+# Author       [ Wan-Cyuan Fan ]
+###########################################
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC

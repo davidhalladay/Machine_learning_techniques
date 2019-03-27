@@ -1,3 +1,8 @@
+###########################################
+# FileName     [ problem_16.py ]
+# Synopsis     [ validation procedure with randomly samples ]
+# Author       [ Wan-Cyuan Fan ]
+###########################################
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
@@ -77,10 +82,11 @@ def main():
     print(r_count)
 
     plt.figure(figsize=(10,8))
-    r_l = [ "0.01" ,"0.1","0","10","100"]
+    r_l = [ "-2" ,"-1","0","1","2"]
     y_pos = np.arange(len(r))
     plt.bar(y_pos, r_count, align='center', alpha=0.5)
     plt.xticks(y_pos, r_l)
+    plt.xlabel('log(r)')
     plt.ylabel('count')
     plt.title('r_count hist')
     plt.savefig('./hist.png')

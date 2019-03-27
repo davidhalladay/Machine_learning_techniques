@@ -1,3 +1,8 @@
+###########################################
+# FileName     [ problem_14.py ]
+# Synopsis     [ polynomial kernel testing ]
+# Author       [ Wan-Cyuan Fan ]
+###########################################
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
@@ -34,7 +39,7 @@ def plot_image(c,w_norm):
     plt.figure(figsize = (10,8))
     plt.plot(c,w_norm, '--o')
     for x, y in zip(c, w_norm):
-        plt.text(x+0.2, y+0.005, str(round(y, 3)))
+        plt.text(x+0.2, y+0.001, str(round(y, 3)))
     plt.title("polynomial kernel")
     plt.xlabel("log(C)")
     plt.ylabel("Ein")
@@ -60,7 +65,7 @@ def main():
     E_in = []
     for i in range(5):
         print("completed : %d/5" %(i+1))
-        clf = SVC(C = 10**c[i] , kernel = 'poly' , tol = 1e-4 ,coef0 = 1. , degree =2 , gamma=1)
+        clf = SVC(C = 10**c[i] , kernel = 'poly' , tol = 1e-3 ,coef0 = 1. , degree =2 , gamma=1)
         clf.fit(train_data[:,1:], train_label)
         tmp = 1. - clf.score(train_data[:,1:],train_label)
         print("E_in : ",tmp)

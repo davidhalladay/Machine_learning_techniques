@@ -1,3 +1,8 @@
+###########################################
+# FileName     [ problem_15.py ]
+# Synopsis     [ Gaussian kernel testing ]
+# Author       [ Wan-Cyuan Fan ]
+###########################################
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC

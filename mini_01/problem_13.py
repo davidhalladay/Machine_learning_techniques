@@ -1,3 +1,8 @@
+###########################################
+# FileName     [ problem_13.py ]
+# Synopsis     [ linear kernel testing ]
+# Author       [ Wan-Cyuan Fan ]
+###########################################
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
@@ -34,7 +39,7 @@ def plot_image(c,w_norm):
     plt.figure(figsize = (10,8))
     plt.plot(c,w_norm, '--o')
     for x, y in zip(c, w_norm):
-        plt.text(x+0.2, y+0.1, str(round(y, 4)))
+        plt.text(x+0.2, y+0.001, str(round(y, 4)))
     plt.title("linear kernel")
     plt.xlabel("log(C)")
     plt.ylabel("norm of w")
@@ -60,7 +65,7 @@ def main():
     w_norm = []
     for i in range(5):
         print("completed : %d/5" %(i+1))
-        clf = SVC(C = 10**c[i] , kernel = 'linear', tol = 1e-3)
+        clf = SVC(C = 10**c[i] , kernel = 'linear', tol = 1e-4)
         clf.fit(train_data[:,1:], train_label)
         w = clf.coef_
         w = np.linalg.norm(w)

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
-import my_lib
+
 
 # loading data
 # i/p: string(filename) ,o/p: np.array(data)
@@ -30,33 +30,43 @@ def data_label(data,classfy_num):
             label.append(0.)
     return np.array(label)
 
+def plot_image(c,w_norm):
+    plt.figure(figsize = (10,8))
+    plt.plot(c,w_norm, '--o')
+    for x, y in zip(c, w_norm):
+        plt.text(x+0.2, y+0.005, str(round(y, 3)))
+    plt.title("polynomial kernel")
+    plt.xlabel("log(C)")
+    plt.ylabel("Ein")
+    plt.savefig("./polynomial.png")
+    print("Completed 100%!")
+    return 0
+
 def main():
     # loading data
+    print("Problem 14:")
     filename = ["./features.train","./features.test"]
     train_data = load_data(filename[0])
     test_data = load_data(filename[1])
-    train_label = data_label(train_data,2)
+    train_label = data_label(train_data,4)
     print("train_data size : ",train_data.shape)
     print("train_label size : ",train_label.shape)
     print("test_data size  : ",test_data.shape)
 
     # trian SVM
+    print("--"*10)
+    print("start training...")
     c = [ -5. , -3. , -1. , 1. , 3. ]
-    clf = SVC(C = 10**c[0] , kernel = 'linear')
-    clf.fit(train_data, train_label)
+    E_in = []
+    for i in range(5):
+        print("completed : %d/5" %(i+1))
+        clf = SVC(C = 10**c[i] , kernel = 'poly' , tol = 1e-4 ,coef0 = 1. , degree =2 , gamma=1)
+        clf.fit(train_data[:,1:], train_label)
+        tmp = 1. - clf.score(train_data[:,1:],train_label)
+        print("E_in : ",tmp)
+        E_in.append(tmp)
 
-    # calculate np.abs(w)
-    w = clf.coef_
-
-    alpha = np.abs(clf.dual_coef_.reshape(-1))
-    w_d = np.array([0.,0.,0.])
-    for n in range(clf.support_vectors_.shape[0]):
-        tmp = clf.dual_coef_.reshape(-1)[n] * clf.support_vectors_[n]
-        w_d += tmp
-    print(w_d)
-
-
-
+    plot_image(c,E_in)
 
 
 # main()

@@ -1,0 +1,15 @@
+* 10000維中，前5000維是所謂的mean squared displacement (MSD) as a function of time interval，
+5000個維度分別代表5000個不同time interval下，軌跡中位移的second moment的平均。
+* MSD是用來分析運動是否碰到阻礙常用的方法。在完全沒有碰到阻礙的情況下，MSD應該是linearly proportional
+to the time interval。在我們的例子中，有兩個因素（分別是fMB 以及 mesh confinement）都會使MSD偏離一
+條直線。理想上，我們希望從MSD的彎曲程度和方式，來了解軌跡中的資訊。
+* 剩下的5000維是所謂的velocity autocorrelation (VAC)，它是由50組VAC data串連組成，每組有100個維度
+。VAC也是分析擴散運動型態的常用方法之一，他的概念是在軌跡中找不同time interval時，速度的correlation。
+VAC的100個維度，代表100個不同的time interval。另外，我們也調整計算速度的方法，從非常瞬間的速度，至較為
+平均的速度，總共挑了50個計算速度的方式。由此構成了50x100 = 5000維度的資訊。
+* 總合來說，feature matrix是有兩組常用的統計分析方法之結果。一般的物理方法，會試著推導出這兩個統計分析方
+法之解析解，然後試著fitting，找到決定軌跡的未知變數（in our case, mesh size L, alpha, transmission
+ probability）。在我們的例子中，推導出解析解非常困難，然而我相信這5000維的feature matrix中包含了很多的
+ 消化過的資訊，希望足夠machine learning來估計那三個未知數。
+* 最後一提，以上總共10,000 (1e4)維的feature是從總共100,000 (1e5) steps的軌跡計算而來。我們也考慮過直
+接把軌跡位置的data當作feature（完全不做額外處理或分析），但資料量太大，所以後來改成現行的做法（資料量還是蠻大）
